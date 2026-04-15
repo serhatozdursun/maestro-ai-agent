@@ -28,11 +28,11 @@ The project is **not** a one-step-only demo. The **`scenario-run`** CLI (MCP-ori
 
 Inputs should be classifiable and normalizable into one **canonical scenario format** (see [docs/scenario-format.md](docs/scenario-format.md) for current conventions):
 
-| Style | Examples (illustrative) |
-|--------|-------------------------|
-| Natural language | “Open the cart and verify checkout is visible.” |
-| Step lists | Numbered or bulleted lines the user treats as ordered steps. |
-| Gherkin / BDD | `Given` / `When` / `Then` style scenarios (normalization target). |
+| Style                     | Examples (illustrative)                                             |
+| ------------------------- | ------------------------------------------------------------------- |
+| Natural language          | “Open the cart and verify checkout is visible.”                     |
+| Step lists                | Numbered or bulleted lines the user treats as ordered steps.        |
+| Gherkin / BDD             | `Given` / `When` / `Then` style scenarios (normalization target).   |
 | English / Turkish / mixed | Same intent expressed in one or multiple languages in one scenario. |
 
 **Today:** deterministic parsing focuses on **newline / list-style** scenario text in English-oriented heuristics; **broader classification and multilingual parsing** are **roadmap**, not fully implemented.
@@ -78,7 +78,7 @@ Scenario Input
   → Structured run artifacts + optional Maestro draft preview
 ```
 
-**Implemented slice:** ``maestro_ai_agent.scenario`` performs classification → deterministic canonical parse (+ optional AI normalize), then ``planning_adapter.build_parsed_scenario_from_canonical`` feeds :class:`ParsedScenario` into existing ``plan_intents``. The CLI ``scenario-run`` sets ``ScenarioRunRequest.use_canonical_scenario_normalization=True`` (deterministic ``normalize_scenario_text`` only). Other callers may still use the legacy line parse unless they set the flag.
+**Implemented slice:** `maestro_ai_agent.scenario` performs classification → deterministic canonical parse (+ optional AI normalize), then `planning_adapter.build_parsed_scenario_from_canonical` feeds :class:`ParsedScenario` into existing `plan_intents`. The CLI `scenario-run` sets `ScenarioRunRequest.use_canonical_scenario_normalization=True` (deterministic `normalize_scenario_text` only). Other callers may still use the legacy line parse unless they set the flag.
 
 **Runtime exploration** is used **when** the planner needs **ground truth** from the device (current hierarchy, execution outcome, post-action hierarchy)—not to fabricate a full project flow without evidence.
 
@@ -86,11 +86,11 @@ Scenario Input
 
 ## Three responsibilities
 
-| Responsibility | Meaning |
-|----------------|---------|
-| **Scenario understanding** | Parse + normalize input → canonical steps and intents (mostly deterministic; optional AI assist). Feeds **what to try** on the device; does **not** apply your Maestro repo’s naming or structure rules. |
-| **Runtime exploration** | Per step: observe hierarchy, rank selectors, execute when enabled, re-observe, validate, record—**Maestro MCP or CLI** behind a stable provider boundary. This is the **core product surface**: device-grounded behavior. |
-| **Artifact generation** | Emit **structured run data** (reports, decision logs, hierarchy captures, flow draft bookkeeping) plus **optional Maestro-shaped draft preview** YAML for replay or external tooling—not authoritative “final” project YAML. |
+| Responsibility             | Meaning                                                                                                                                                                                                                      |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Scenario understanding** | Parse + normalize input → canonical steps and intents (mostly deterministic; optional AI assist). Feeds **what to try** on the device; does **not** apply your Maestro repo’s naming or structure rules.                     |
+| **Runtime exploration**    | Per step: observe hierarchy, rank selectors, execute when enabled, re-observe, validate, record—**Maestro MCP or CLI** behind a stable provider boundary. This is the **core product surface**: device-grounded behavior.    |
+| **Artifact generation**    | Emit **structured run data** (reports, decision logs, hierarchy captures, flow draft bookkeeping) plus **optional Maestro-shaped draft preview** YAML for replay or external tooling—not authoritative “final” project YAML. |
 
 ---
 
@@ -125,11 +125,11 @@ For **MVP boundaries** in more detail, see [docs/mvp-scope.md](docs/mvp-scope.md
 
 ## Related documents
 
-| Document | Role |
-|----------|------|
-| [docs/architecture.md](docs/architecture.md) | Packages, modules, dependency direction |
-| [PROJECT_GOALS.md](PROJECT_GOALS.md) | Goals, non-goals, principles |
-| [docs/mvp-scope.md](docs/mvp-scope.md) | MVP in/out scope |
-| [docs/visual-advisory-fallback.md](docs/visual-advisory-fallback.md) | Locator AI fallback contract |
-| [docs/selector-strategy.md](docs/selector-strategy.md) | Selector priority |
-| [docs/maestro-integration.md](docs/maestro-integration.md) | MCP vs CLI, transport |
+| Document                                                             | Role                                    |
+| -------------------------------------------------------------------- | --------------------------------------- |
+| [docs/architecture.md](docs/architecture.md)                         | Packages, modules, dependency direction |
+| [PROJECT_GOALS.md](PROJECT_GOALS.md)                                 | Goals, non-goals, principles            |
+| [docs/mvp-scope.md](docs/mvp-scope.md)                               | MVP in/out scope                        |
+| [docs/visual-advisory-fallback.md](docs/visual-advisory-fallback.md) | Locator AI fallback contract            |
+| [docs/selector-strategy.md](docs/selector-strategy.md)               | Selector priority                       |
+| [docs/maestro-integration.md](docs/maestro-integration.md)           | MCP vs CLI, transport                   |

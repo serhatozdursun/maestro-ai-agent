@@ -101,10 +101,14 @@ class PostExecutionValidationService:
             )
             return _apply_record(step, post, record)
 
-        if step.intent.primary_action in (
-            ActionType.ASSERT_VISIBLE,
-            ActionType.ASSERT_NOT_VISIBLE,
-        ) and step.planned_attempt is not None:
+        if (
+            step.intent.primary_action
+            in (
+                ActionType.ASSERT_VISIBLE,
+                ActionType.ASSERT_NOT_VISIBLE,
+            )
+            and step.planned_attempt is not None
+        ):
             pa = step.planned_attempt
             if pa.chosen_candidate_id != DIRECT_ASSERT_SURFACE_ID:
                 v_ranked, lines_ranked = evaluate_ranked_assert_hierarchy(

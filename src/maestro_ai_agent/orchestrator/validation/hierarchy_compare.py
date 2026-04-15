@@ -27,9 +27,7 @@ def _is_volatile_ui_text(text: str) -> bool:
         return True
     if "%" in text and "battery" in text:
         return True
-    if "wi-fi bars" in text or "no signal" in text or "not charging" in text:
-        return True
-    return False
+    return "wi-fi bars" in text or "no signal" in text or "not charging" in text
 
 
 def visible_text_tokens(hierarchy: HierarchySnapshot) -> frozenset[str]:

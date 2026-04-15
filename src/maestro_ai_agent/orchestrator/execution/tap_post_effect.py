@@ -10,7 +10,9 @@ from maestro_ai_agent.domain.intent import StepIntent
 from maestro_ai_agent.domain.selectors.pipeline import plan_selector_ranking
 from maestro_ai_agent.domain.selectors.tap_resolution import TapResolutionSettings
 from maestro_ai_agent.orchestrator.action_attempt_planning import plan_action_attempt_from_ranking
-from maestro_ai_agent.orchestrator.validation.hierarchy_compare import hierarchy_meaningfully_changed
+from maestro_ai_agent.orchestrator.validation.hierarchy_compare import (
+    hierarchy_meaningfully_changed,
+)
 from maestro_ai_agent.services.maestro.models import ActionResult
 
 

@@ -28,13 +28,13 @@ Use screenshots as **context for hint extraction**, not as the primary automatio
 
 ## Extension points
 
-| Piece | Role |
-|--------|------|
-| `domain.visual_advisory` | `VisualAdvisoryRequest` / `VisualAdvisoryResponse` / `BoundingBoxHint` |
-| `services.maestro.visual_target_suggester` | `VisualTargetSuggester` protocol + `NullVisualTargetSuggester` |
-| `orchestrator.visual_advisory_support` | Build request from `StepRunState` + digest; merge response into hints |
-| `orchestrator.step_processing.rank_and_plan_for_step` | Hook: optional second rank after failed first pass |
-| `ObservationCycleResult.screenshot` | Carries `ScreenshotArtifact` from observe for advisory |
+| Piece                                                 | Role                                                                   |
+| ----------------------------------------------------- | ---------------------------------------------------------------------- |
+| `domain.visual_advisory`                              | `VisualAdvisoryRequest` / `VisualAdvisoryResponse` / `BoundingBoxHint` |
+| `services.maestro.visual_target_suggester`            | `VisualTargetSuggester` protocol + `NullVisualTargetSuggester`         |
+| `orchestrator.visual_advisory_support`                | Build request from `StepRunState` + digest; merge response into hints  |
+| `orchestrator.step_processing.rank_and_plan_for_step` | Hook: optional second rank after failed first pass                     |
+| `ObservationCycleResult.screenshot`                   | Carries `ScreenshotArtifact` from observe for advisory                 |
 
 ## Safest next experiment
 

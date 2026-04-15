@@ -66,7 +66,8 @@ class TapPrimaryFlowFallbackResult:
     tap_on_mcp_args: dict[str, Any] | None
     run_flow_mcp_args: dict[str, Any] | None
     final_hierarchy: HierarchySnapshot
-    # PostTapUiOutcome value after tap_on; skipped_run_flow_escalation avoids same-selector run_flow.
+    # PostTapUiOutcome after tap_on; skipped_run_flow_escalation avoids
+    # same-selector run_flow.
     post_direct_outcome: str | None = None
     skipped_run_flow_escalation: bool = False
 
@@ -169,25 +170,24 @@ def execute_tap_primary_then_flow_fallback(
 
     # Scenario taps: do not re-hit the same selector via run_flow when tap succeeded but UI
     # did not change (rotation should try the next ranked candidate instead).
-    if not blocker_popup_fast_fallback:
-        if direct_outcome is PostTapUiOutcome.NO_EFFECT:
-            log.info(
-                f"{log_event_prefix}_run_flow_skipped",
-                reason="scenario_no_ui_change_after_ok_tap_try_next_ranked_candidate",
-                post_direct_outcome=direct_outcome.value,
-            )
-            return TapPrimaryFlowFallbackResult(
-                terminal_ok=False,
-                winning_tool=None,
-                tap_on_result=tap_res,
-                run_flow_result=None,
-                flow_yaml=None,
-                tap_on_mcp_args=dict(tap_args),
-                run_flow_mcp_args=None,
-                final_hierarchy=after1,
-                post_direct_outcome=direct_outcome.value,
-                skipped_run_flow_escalation=True,
-            )
+    if not blocker_popup_fast_fallback and direct_outcome is PostTapUiOutcome.NO_EFFECT:
+        log.info(
+            f"{log_event_prefix}_run_flow_skipped",
+            reason="scenario_no_ui_change_after_ok_tap_try_next_ranked_candidate",
+            post_direct_outcome=direct_outcome.value,
+        )
+        return TapPrimaryFlowFallbackResult(
+            terminal_ok=False,
+            winning_tool=None,
+            tap_on_result=tap_res,
+            run_flow_result=None,
+            flow_yaml=None,
+            tap_on_mcp_args=dict(tap_args),
+            run_flow_mcp_args=None,
+            final_hierarchy=after1,
+            post_direct_outcome=direct_outcome.value,
+            skipped_run_flow_escalation=True,
+        )
 
     if blocker_popup_fast_fallback:
         log.info(

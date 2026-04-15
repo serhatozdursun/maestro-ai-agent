@@ -41,8 +41,8 @@ project-specific Maestro flow
 
 **English — step list**
 
-> 1. Tap "Sign in"  
-> 2. Input email  
+> 1. Tap "Sign in"
+> 2. Input email
 > 3. Tap "Continue"
 
 Today’s **deterministic** parsers focus on **line-oriented** scenario text. Richer free-form natural language, Gherkin, and multilingual normalization are **feature plan** items, not validated behavior yet.
@@ -89,9 +89,11 @@ pipx install maestro-ai-agent
 maestro-ai-agent --help
 ```
 
-PyPI package page: [maestro-ai-agent 0.1.0](https://pypi.org/project/maestro-ai-agent/0.1.0/).
+PyPI package page: [maestro-ai-agent on PyPI](https://pypi.org/project/maestro-ai-agent/).
 
-## Getting started (development)
+If you only want to use the CLI, you do **not** need a local clone or editable install.
+
+## Development setup (for contributors)
 
 ```bash
 python -m venv .venv
@@ -103,9 +105,6 @@ ruff check src tests
 black --check src tests
 pre-commit install
 pre-commit run --all-files
-```
-
-```bash
 maestro-ai-agent --help
 ```
 
@@ -155,18 +154,18 @@ maestro-ai-agent scenario-run \
 
 ## Documentation
 
-| Document | Description |
-|----------|-------------|
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Product intent, pipeline, where AI is allowed / not |
-| [PROJECT_GOALS.md](PROJECT_GOALS.md) | Goals, non-goals, near-term vs deferred |
-| [docs/architecture.md](docs/architecture.md) | Components, boundaries, data flow in code |
-| [docs/mvp-scope.md](docs/mvp-scope.md) | MVP boundaries and deliverables |
-| [docs/maestro-integration.md](docs/maestro-integration.md) | MCP vs CLI strategy, transport, hierarchy CSV |
-| [docs/selector-strategy.md](docs/selector-strategy.md) | Selector priority and anti-patterns |
-| [docs/visual-advisory-fallback.md](docs/visual-advisory-fallback.md) | Screenshot-backed locator advisory (optional) |
-| [docs/scenario-format.md](docs/scenario-format.md) | Scenario conventions and deterministic parsing notes |
-| [docs/ai-scenario-grammar.md](docs/ai-scenario-grammar.md) | AI-friendly deterministic step grammar + CLI input surfaces |
-| `maestro_ai_agent.scenario` | Scenario understanding: raw text → canonical steps → optional AI; `planning_adapter` bridges to `ParsedScenario` / `plan_intents` (`scenario-run` enables canonical normalization) |
+| Document                                                             | Description                                                                                                                                                                        |
+| -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [ARCHITECTURE.md](ARCHITECTURE.md)                                   | Product intent, pipeline, where AI is allowed / not                                                                                                                                |
+| [PROJECT_GOALS.md](PROJECT_GOALS.md)                                 | Goals, non-goals, near-term vs deferred                                                                                                                                            |
+| [docs/architecture.md](docs/architecture.md)                         | Components, boundaries, data flow in code                                                                                                                                          |
+| [docs/mvp-scope.md](docs/mvp-scope.md)                               | MVP boundaries and deliverables                                                                                                                                                    |
+| [docs/maestro-integration.md](docs/maestro-integration.md)           | MCP vs CLI strategy, transport, hierarchy CSV                                                                                                                                      |
+| [docs/selector-strategy.md](docs/selector-strategy.md)               | Selector priority and anti-patterns                                                                                                                                                |
+| [docs/visual-advisory-fallback.md](docs/visual-advisory-fallback.md) | Screenshot-backed locator advisory (optional)                                                                                                                                      |
+| [docs/scenario-format.md](docs/scenario-format.md)                   | Scenario conventions and deterministic parsing notes                                                                                                                               |
+| [docs/ai-scenario-grammar.md](docs/ai-scenario-grammar.md)           | AI-friendly deterministic step grammar + CLI input surfaces                                                                                                                        |
+| `maestro_ai_agent.scenario`                                          | Scenario understanding: raw text → canonical steps → optional AI; `planning_adapter` bridges to `ParsedScenario` / `plan_intents` (`scenario-run` enables canonical normalization) |
 
 ## License
 

@@ -14,10 +14,10 @@ from maestro_ai_agent.orchestrator.execution.action_mapping import (
     SupportedProviderAction,
     map_planned_to_provider_action,
 )
+from maestro_ai_agent.orchestrator.execution.inline_flow_yaml import build_press_key_flow_yaml
 from maestro_ai_agent.orchestrator.execution.input_primary_flow_fallback import (
     execute_input_primary_then_flow_fallback,
 )
-from maestro_ai_agent.orchestrator.execution.inline_flow_yaml import build_press_key_flow_yaml
 from maestro_ai_agent.orchestrator.execution.runtime_tap_order import runtime_tap_planned_attempts
 from maestro_ai_agent.orchestrator.execution.tap_post_effect import (
     next_intent_resolvable_for_branch_probe,
@@ -25,14 +25,14 @@ from maestro_ai_agent.orchestrator.execution.tap_post_effect import (
 from maestro_ai_agent.orchestrator.execution.tap_primary_flow_fallback import (
     execute_tap_primary_then_flow_fallback,
 )
-from maestro_ai_agent.orchestrator.validation.hierarchy_compare import (
-    hierarchy_fingerprint,
-    hierarchy_meaningfully_changed,
-)
 from maestro_ai_agent.orchestrator.models import (
     PlannedActionAttempt,
     ProviderExecutionOutcome,
     StepRunState,
+)
+from maestro_ai_agent.orchestrator.validation.hierarchy_compare import (
+    hierarchy_fingerprint,
+    hierarchy_meaningfully_changed,
 )
 from maestro_ai_agent.services.maestro.blocking_popup_dismissal import (
     dismiss_known_blocking_popups_if_present,
