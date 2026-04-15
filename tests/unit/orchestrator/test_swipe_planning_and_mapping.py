@@ -9,7 +9,10 @@ from maestro_ai_agent.domain.enums import ActionType, SelectorType
 from maestro_ai_agent.domain.intent import StepIntent
 from maestro_ai_agent.domain.selector import SelectorCandidate
 from maestro_ai_agent.domain.selectors.explanation import SelectorExplanation
-from maestro_ai_agent.domain.selectors.ranking_types import RankedSelectorCandidate, SelectorRankingResult
+from maestro_ai_agent.domain.selectors.ranking_types import (
+    RankedSelectorCandidate,
+    SelectorRankingResult,
+)
 from maestro_ai_agent.orchestrator.action_attempt_planning import (
     DIRECT_INLINE_FLOW_CANDIDATE_ID,
     plan_action_attempt_from_ranking,
@@ -20,7 +23,9 @@ from maestro_ai_agent.orchestrator.execution.action_mapping import (
     map_planned_to_provider_action,
     try_parse_inline_flow_marker,
 )
-from maestro_ai_agent.orchestrator.execution.execution_service import classify_skipped_step_for_execute_mode
+from maestro_ai_agent.orchestrator.execution.execution_service import (
+    classify_skipped_step_for_execute_mode,
+)
 from maestro_ai_agent.orchestrator.execution.inline_flow_yaml import (
     build_swipe_flow_yaml,
     build_swipe_from_ranked_candidate_flow_yaml,

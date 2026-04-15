@@ -131,7 +131,10 @@ def scenario_run_cmd(
     post_launch_settle: float = typer.Option(
         0.2,
         "--post-launch-settle",
-        help="Seconds before first post-launch hierarchy sample (default 0.2s; then fast stability polling).",
+        help=(
+            "Seconds before first post-launch hierarchy sample "
+            "(default 0.2s; then fast stability polling)."
+        ),
         min=0.0,
         max=60.0,
     ),
@@ -275,10 +278,13 @@ def scenario_run_cmd(
       Press Enter
       AssertVisible 'Text'   (hierarchy check uses ranked id/text when available, else quoted text)
       AssertNotVisible 'Text' (same ranked-first rule when a primary selector exists)
-      Scroll Down           (or Scroll Up / Left / Right; directional only—no per-element scroll grammar)
+      Scroll Down           (or Scroll Up / Left / Right; directional only;
+                             no per-element scroll grammar)
       Swipe Left            (or Swipe Right / Up / Down; same run_flow swipe as Scroll)
-      Swipe left on 'Label' (or Swipe 'Label' left; swipe.from uses ranked id/text when available, else the quoted label as text)
-      ScrollUntilVisible 'Text' (element uses ranked id/text when hierarchy provides a primary, else quoted text)
+      Swipe left on 'Label' (or Swipe 'Label' left; swipe.from uses ranked
+                             id/text when available, else the quoted label as text)
+      ScrollUntilVisible 'Text' (element uses ranked id/text when hierarchy
+                                 provides a primary, else quoted text)
       Dismiss popup         (blocking UI; bounded runtime handling)
 
     \b

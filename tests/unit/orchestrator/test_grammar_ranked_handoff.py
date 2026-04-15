@@ -9,7 +9,10 @@ from maestro_ai_agent.domain.enums import ActionType, SelectorType
 from maestro_ai_agent.domain.intent import StepIntent
 from maestro_ai_agent.domain.selector import SelectorCandidate
 from maestro_ai_agent.domain.selectors.explanation import SelectorExplanation
-from maestro_ai_agent.domain.selectors.ranking_types import RankedSelectorCandidate, SelectorRankingResult
+from maestro_ai_agent.domain.selectors.ranking_types import (
+    RankedSelectorCandidate,
+    SelectorRankingResult,
+)
 from maestro_ai_agent.orchestrator.action_attempt_planning import (
     DIRECT_ASSERT_SURFACE_ID,
     _try_grammar_synthetic_planned_attempt,
