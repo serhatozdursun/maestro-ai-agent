@@ -152,7 +152,7 @@ class McpStdioTransport:
                 "params": {
                     "protocolVersion": self._protocol_version,
                     "capabilities": {},
-                    "clientInfo": {"name": "maestro-ai-agent-scenario", "version": "0.1.0"},
+                    "clientInfo": {"name": "maestro-ai-agent-scenario", "version": "0.1.1"},
                 },
             },
         )

@@ -89,9 +89,11 @@ pipx install maestro-ai-agent
 maestro-ai-agent --help
 ```
 
-PyPI package page: [maestro-ai-agent 0.1.0](https://pypi.org/project/maestro-ai-agent/0.1.0/).
+PyPI package page: [maestro-ai-agent on PyPI](https://pypi.org/project/maestro-ai-agent/).
 
-## Getting started (development)
+If you only want to use the CLI, you do **not** need a local clone or editable install.
+
+## Development setup (for contributors)
 
 ```bash
 python -m venv .venv
@@ -103,9 +105,6 @@ ruff check src tests
 black --check src tests
 pre-commit install
 pre-commit run --all-files
-```
-
-```bash
 maestro-ai-agent --help
 ```
 
