@@ -6,7 +6,7 @@ This document explains **how this repository integrates with Maestro** today, ho
 
 The `maestro_ai_agent.services.maestro` package provides:
 
-- **`MaestroToolTransport`** — a narrow boundary for “call MCP tool *X* with JSON arguments”. **`McpStdioTransport`** implements NDJSON-over-stdio for `maestro mcp`; HTTP+SSE is not implemented here.
+- **`MaestroToolTransport`** — a narrow boundary for “call MCP tool _X_ with JSON arguments”. **`McpStdioTransport`** implements NDJSON-over-stdio for `maestro mcp`; HTTP+SSE is not implemented here.
 - **`McpMaestroAdapter`** (`MaestroScreenProvider`) — maps orchestration-friendly methods onto **documented Maestro MCP tool names** (for example `inspect_view_hierarchy`, `take_screenshot`, `launch_app`). Argument keys follow Maestro docs where known; they may evolve upstream.
 - **`parse_maestro_hierarchy_csv`** — converts `inspect_view_hierarchy` **CSV** into `HierarchySnapshot` / `HierarchyNode` models (primary structured observation for future selector work).
 - **`MaestroScreenService`** — **`observe_current_screen`** composes hierarchy inspection (required) with optional screenshot capture (secondary context); **`tap_on`** and **`input_text`** forward to the same **`MaestroScreenProvider`**. The orchestrator may call **`observe_current_screen`** again after a successful action to drive **deterministic post-execution validation** (hierarchy-only; no transport-specific parsing beyond existing CSV rules).
@@ -34,12 +34,12 @@ CLI subprocess support remains a **planned adapter**, not duplicate logic.
 
 ## Tradeoffs
 
-| Aspect | MCP provider (implemented) | CLI adapter (planned) |
-|--------|--------------------------|------------------------|
-| **Setup** | Requires a working MCP client + Maestro on `PATH` | Requires Maestro on `PATH` only |
-| **Testing** | Mock `MaestroToolTransport` responses | Mock subprocess I/O |
-| **CI** | Depends on how MCP is hosted in the runner | Straightforward local binary |
-| **Hierarchy fidelity** | CSV parsing centralized in `hierarchy_csv.py` | Same parser can wrap CLI output |
+| Aspect                 | MCP provider (implemented)                        | CLI adapter (planned)           |
+| ---------------------- | ------------------------------------------------- | ------------------------------- |
+| **Setup**              | Requires a working MCP client + Maestro on `PATH` | Requires Maestro on `PATH` only |
+| **Testing**            | Mock `MaestroToolTransport` responses             | Mock subprocess I/O             |
+| **CI**                 | Depends on how MCP is hosted in the runner        | Straightforward local binary    |
+| **Hierarchy fidelity** | CSV parsing centralized in `hierarchy_csv.py`     | Same parser can wrap CLI output |
 
 ## Screen-by-screen operation
 

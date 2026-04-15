@@ -18,19 +18,19 @@ This document defines the **supported, deterministic** scenario surface for **hu
 
 ## Supported step types (canonical `action`)
 
-| Canonical `action` | Typical source lines | `target` / `value` |
-|--------------------|----------------------|--------------------|
-| `launch_app` | `Launch app`, `LaunchApp`, `open app` | — |
-| `tap` | `Tap 'Search'`, `Press 'OK'`, `Tap 'Shop' on the tab bar` | quoted label → `target`; optional ``on`` / ``in`` / ``from`` + phrase → `target_container_hint` (slug) + raw qualifier fields |
-| `input_text` | `Enter 'shoe'`, `Type "x"`, `Input 'y'` | quoted text → `target` |
-| `press_key` | `Press Enter`, `Press key 'tab'` | key name → `value` (Maestro key, e.g. `enter`) |
-| `assert_visible` | `AssertVisible 'Results'`, `Assert visible "Results"` | literal → `target` |
-| `assert_not_visible` | `AssertNotVisible 'Loading'`, `Assert not visible "Spinner"` | literal → `target` |
-| `scroll` | `Scroll Down`, `Scroll up`, `ScrollDown` | direction → `value` (`down` / `up` / `left` / `right`) |
-| `swipe` | `Swipe left`, `Swipe Right` (plain directional line) | direction → `value`; **scenario-run** maps to the same Maestro directional `swipe` YAML as `scroll` |
-| `swipe` (targeted) | `Swipe left on 'Story card'`, `Swipe 'Story card' left` | quoted label → `target`; direction → `value`; Maestro `swipe` with `from: text:` |
-| `scroll_until_visible` | `ScrollUntilVisible 'Checkout'`, `Scroll until visible 'Item'` | literal → `target` |
-| `dismiss_blocker` | `Dismiss any popup and continue`, `Dismiss popup dialog` | — |
+| Canonical `action`     | Typical source lines                                           | `target` / `value`                                                                                                      |
+| ---------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `launch_app`           | `Launch app`, `LaunchApp`, `open app`                          | —                                                                                                                       |
+| `tap`                  | `Tap 'Search'`, `Press 'OK'`, `Tap 'Shop' on the tab bar`      | quoted label → `target`; optional `on` / `in` / `from` + phrase → `target_container_hint` (slug) + raw qualifier fields |
+| `input_text`           | `Enter 'shoe'`, `Type "x"`, `Input 'y'`                        | quoted text → `target`                                                                                                  |
+| `press_key`            | `Press Enter`, `Press key 'tab'`                               | key name → `value` (Maestro key, e.g. `enter`)                                                                          |
+| `assert_visible`       | `AssertVisible 'Results'`, `Assert visible "Results"`          | literal → `target`                                                                                                      |
+| `assert_not_visible`   | `AssertNotVisible 'Loading'`, `Assert not visible "Spinner"`   | literal → `target`                                                                                                      |
+| `scroll`               | `Scroll Down`, `Scroll up`, `ScrollDown`                       | direction → `value` (`down` / `up` / `left` / `right`)                                                                  |
+| `swipe`                | `Swipe left`, `Swipe Right` (plain directional line)           | direction → `value`; **scenario-run** maps to the same Maestro directional `swipe` YAML as `scroll`                     |
+| `swipe` (targeted)     | `Swipe left on 'Story card'`, `Swipe 'Story card' left`        | quoted label → `target`; direction → `value`; Maestro `swipe` with `from: text:`                                        |
+| `scroll_until_visible` | `ScrollUntilVisible 'Checkout'`, `Scroll until visible 'Item'` | literal → `target`                                                                                                      |
+| `dismiss_blocker`      | `Dismiss any popup and continue`, `Dismiss popup dialog`       | —                                                                                                                       |
 
 Other legacy verbs (`back`, shopping heuristics, Gherkin, Turkish cues) may still exist in the deterministic parser but are **outside** this grammar table unless listed above.
 
@@ -42,7 +42,7 @@ Other legacy verbs (`back`, shopping heuristics, Gherkin, Turkish cues) may stil
 
 ## Optional tap context (soft ranking hints)
 
-After the quoted literal, you may add a **contextual qualifier** using ``on``, ``in``, or ``from`` followed by a short phrase. The phrase is **not** a hard filter: it nudges deterministic selector ranking when hierarchy/geometry supports it.
+After the quoted literal, you may add a **contextual qualifier** using `on`, `in`, or `from` followed by a short phrase. The phrase is **not** a hard filter: it nudges deterministic selector ranking when hierarchy/geometry supports it.
 
 Examples:
 
@@ -51,7 +51,7 @@ Examples:
 - `Tap 'Filter' from the modal`
 - `Tap 'Search' in the top bar`
 
-Synonyms (deterministic) map to internal slugs such as ``tab_bar``, ``header``, ``modal``, ``footer``, ``drawer``, ``card``, ``search_field`` (see ``domain/selectors/tap_qualifier.py``).
+Synonyms (deterministic) map to internal slugs such as `tab_bar`, `header`, `modal`, `footer`, `drawer`, `card`, `search_field` (see `domain/selectors/tap_qualifier.py`).
 
 ## Quoted text guidance
 

@@ -1,8 +1,8 @@
 {
-    "mcpServers": {
-      "maestro": {
-        "command": "maestro",
-        "args": ["mcp"]
-      }
+  "mcpServers": {
+    "maestro": {
+      "command": "maestro",
+      "args": ["mcp"]
     }
   }
+}
