@@ -267,9 +267,7 @@ def _try_grammar_synthetic_planned_attempt(
                 selector_type=SelectorType.TEXT,
                 score=0.0,
                 rank_position=0,
-                explanation_summary=(
-                    "Maestro run_flow (swipe from text) from grammar swipe step."
-                ),
+                explanation_summary=("Maestro run_flow (swipe from text) from grammar swipe step."),
             )
         return PlannedActionAttempt(
             intent_id=intent.intent_id,

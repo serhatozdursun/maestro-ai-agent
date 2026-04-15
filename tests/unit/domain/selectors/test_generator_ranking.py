@@ -176,5 +176,3 @@ def test_apply_ranking_to_intent_attaches_ordered_candidates() -> None:
     updated = apply_ranking_to_intent(intent, ranking)
     assert len(updated.selector_candidates) == len(ranking.ordered)
     assert updated.selector_candidates[0].candidate_id == ranking.ordered[0].candidate.candidate_id
-
-
