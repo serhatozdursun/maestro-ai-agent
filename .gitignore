@@ -74,6 +74,7 @@ dmypy.json
 
 # Maestro / mobile artifacts (generated during runs)
 artifacts/
+scenario-out/
 screenshots/
 *.png
 *.jpg
