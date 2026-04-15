@@ -1,0 +1,5 @@
+# Local spike scenario — edit quoted strings to match on-screen labels from hierarchy.
+Tap 'Search'
+Tap 'Search for Products'
+Enter 'shoe'
+Press Key 'tab'

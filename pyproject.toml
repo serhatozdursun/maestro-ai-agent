@@ -1,0 +1,81 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "maestro-ai-agent"
+version = "0.1.0"
+description = "Deterministic-first Maestro orchestration runtime for mobile scenario exploration, validation, and structured execution artifacts."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Maestro AI Agent contributors" }]
+keywords = ["maestro", "mobile", "testing", "automation", "orchestrator", "runtime"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
+]
+dependencies = [
+  "pydantic>=2.6,<3",
+  "pydantic-settings>=2.2,<3",
+  "typer>=0.12,<1",
+  "structlog>=24.1,<26",
+]
+
+[project.optional-dependencies]
+dev = [
+  "black>=24.3,<26",
+  "pytest>=8.1,<9",
+  "ruff>=0.6,<1",
+]
+
+[project.urls]
+Homepage = "https://github.com/example/maestro-ai-agent"
+Repository = "https://github.com/example/maestro-ai-agent"
+
+[project.scripts]
+maestro-ai-agent = "maestro_ai_agent.app.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+maestro_ai_agent = ["py.typed"]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+include = '\.pyi?$'
+extend-exclude = "/(\\.venv|\\.git|build|dist)/"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "TCH", "PTH", "RUF"]
+ignore = []
+
+[tool.ruff.lint.isort]
+known-first-party = ["maestro_ai_agent"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/maestro_ai_agent/app/**" = ["TC001", "TC003"]
+"src/maestro_ai_agent/app/cli.py" = ["B008"]
+"src/maestro_ai_agent/domain/**" = ["TC001", "TC003"]
+"src/maestro_ai_agent/scenario/**" = ["TC001", "TC003"]
+"src/maestro_ai_agent/orchestrator/**" = ["TC001", "TC003"]
+"src/maestro_ai_agent/services/maestro/**" = ["TC001", "TC003"]
+"tests/**" = ["TC001", "TC003"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra -q"

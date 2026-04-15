@@ -1,0 +1,38 @@
+# maestro-ai-agent — Cursor rules (deterministic-first)
+
+Read **[ARCHITECTURE.md](ARCHITECTURE.md)** and **[PROJECT_GOALS.md](PROJECT_GOALS.md)** before large changes. Implementation detail: **[docs/architecture.md](docs/architecture.md)**.
+
+## Long-term goal
+
+Support **complex human-written mobile scenarios** (natural language, step lists, Gherkin/BDD, Turkish, English, mixed), **normalize** to a **canonical scenario format**, **generate valid Maestro-native YAML**, use **runtime exploration (Maestro MCP/CLI)** **only when needed**, and keep **AI in fallback roles only**—never the main control plane.
+
+Naming clarity: keep the repository name **`maestro-ai-agent`**, but describe the core system as a **deterministic-first orchestration runtime**; treat LLM integrations as **fallback providers/backends**, not the runtime agent.
+
+## Non-negotiable: deterministic first
+
+- **Do not** replace hierarchy parsing, **selector ranking core**, provider mapping, **YAML serialization**, **orchestrator state machine**, or **validation core** with LLM logic unless the user explicitly requests an experiment and the change is isolated behind a port.
+- **Do not** generate **complete final Maestro flows** directly from an LLM as the default product path. YAML must come from **structured, auditable** steps (planner + ranker + Maestro-shaped builders).
+- **Preserve** the **working `scenario-run` / hierarchy-first path**; new behavior should be **opt-in** or behind interfaces unless the user asks otherwise.
+
+## Where AI *is* appropriate (when explicitly wired)
+
+1. Scenario **parsing fallback** (low confidence / ambiguous input → structured hints toward the canonical format).
+2. **Locator / visual fallback** when hierarchy is insufficient (`VisualTargetSuggester` and related models)—advisory only; deterministic ranking remains the gate.
+3. **Failure explanation** (future): narrative on top of deterministic evidence.
+
+## Maestro and selectors
+
+- Keep YAML **Maestro-valid** and **Maestro-native** (commands and shapes users expect from Maestro docs).
+- **Hierarchy-first** for selectors; **screenshots** supplement context, not replace hierarchy when data exists.
+- Selector priority: **id → text → relational refinements → point (last resort)**. See [docs/selector-strategy.md](docs/selector-strategy.md).
+
+## Engineering habits
+
+- **Avoid overengineering**; prefer small modules, explicit protocols, tests for pure logic.
+- **Minimal safe diffs**; do not refactor unrelated code.
+- When **architecture or integration posture changes**, update **README.md**, **ARCHITECTURE.md** or **PROJECT_GOALS.md**, and relevant **docs/**—keep them consistent.
+- User-facing reports and log copy: **English** unless the user specifies otherwise.
+
+## Scope reminder
+
+Single-scenario / single-session / one-platform assumptions remain until the codebase explicitly grows past them; see [docs/mvp-scope.md](docs/mvp-scope.md).
