@@ -78,6 +78,18 @@ Layers stay separated so planning, Maestro integration, selector ranking, and dr
 ## Requirements
 
 - Python 3.11+
+- [Maestro CLI](https://maestro.mobile.dev/)
+
+## Quick global install (recommended)
+
+```bash
+brew install maestro
+brew install pipx
+pipx install maestro-ai-agent
+maestro-ai-agent --help
+```
+
+PyPI package page: [maestro-ai-agent 0.1.0](https://pypi.org/project/maestro-ai-agent/0.1.0/).
 
 ## Getting started (development)
 
@@ -89,6 +101,8 @@ cp .env.example .env
 pytest
 ruff check src tests
 black --check src tests
+pre-commit install
+pre-commit run --all-files
 ```
 
 ```bash
