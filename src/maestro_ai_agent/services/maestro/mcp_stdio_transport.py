@@ -206,6 +206,40 @@ class McpStdioTransport:
         msg = self._read_until_response_id(req_id)
         return mcp_tools_call_result_to_tool_call(name, msg)
 
+    def list_tool_names(self) -> list[str]:
+        """Return MCP tool names advertised by ``tools/list``."""
+        if self._proc is None:
+            msg = "McpStdioTransport.start() must be called before list_tool_names()."
+            raise RuntimeError(msg)
+        req_id = self._next_id
+        self._next_id += 1
+        self._send_json(
+            {
+                "jsonrpc": "2.0",
+                "id": req_id,
+                "method": "tools/list",
+                "params": {},
+            },
+        )
+        msg = self._read_until_response_id(req_id)
+        if "error" in msg:
+            err = msg["error"]
+            emsg = err.get("message", str(err)) if isinstance(err, dict) else str(err)
+            raise RuntimeError(f"MCP tools/list failed: {emsg}")
+        result = msg.get("result")
+        if not isinstance(result, dict):
+            raise RuntimeError("MCP tools/list returned malformed result payload.")
+        tools = result.get("tools")
+        if not isinstance(tools, list):
+            return []
+        names: list[str] = []
+        for tool in tools:
+            if isinstance(tool, dict):
+                name = tool.get("name")
+                if isinstance(name, str) and name.strip():
+                    names.append(name.strip())
+        return names
+
     def _send_json(self, payload: dict[str, Any]) -> None:
         proc = self._proc
         if proc is None or proc.stdin is None:

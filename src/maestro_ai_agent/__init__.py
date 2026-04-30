@@ -1,3 +1,3 @@
 """maestro-ai-agent: scenario-driven Maestro flow generation (foundation package)."""
 
-__version__ = "0.1.1"
+__version__ = "0.1.3"

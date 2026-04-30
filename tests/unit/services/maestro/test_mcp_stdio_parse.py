@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
-from maestro_ai_agent.services.maestro.mcp_stdio_transport import mcp_tools_call_result_to_tool_call
+from maestro_ai_agent.services.maestro.mcp_stdio_transport import (
+    McpStdioTransport,
+    mcp_tools_call_result_to_tool_call,
+)
 
 
 def test_tools_call_success_maps_text_content() -> None:
@@ -44,3 +47,33 @@ def test_json_rpc_error_field() -> None:
     )
     assert r.is_error is True
     assert "boom" in r.text
+
+
+def test_list_tool_names_parses_tools_list_payload(monkeypatch) -> None:
+    transport = McpStdioTransport(["echo", "unused"])
+    transport._proc = object()  # type: ignore[assignment]
+    sent: dict[str, object] = {}
+
+    def _fake_send_json(payload):  # type: ignore[no-untyped-def]
+        sent.update(payload)
+
+    def _fake_read_until_response_id(_want_id):  # type: ignore[no-untyped-def]
+        return {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "result": {
+                "tools": [
+                    {"name": "list_devices"},
+                    {"name": "launch_app"},
+                    {"name": "inspect_view_hierarchy"},
+                ],
+            },
+        }
+
+    monkeypatch.setattr(transport, "_send_json", _fake_send_json)
+    monkeypatch.setattr(transport, "_read_until_response_id", _fake_read_until_response_id)
+
+    names = transport.list_tool_names()
+
+    assert sent["method"] == "tools/list"
+    assert names == ["list_devices", "launch_app", "inspect_view_hierarchy"]
