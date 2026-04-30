@@ -59,6 +59,24 @@ MAESTRO_DRAFT_PREVIEW_FILENAME = "maestro_draft_preview.yaml"
 _PREFLIGHT_STABILITY_POLL_INTERVAL_S = 0.6
 _PREFLIGHT_STABILITY_MAX_ITERATIONS = 3
 _PREFLIGHT_STABILITY_MAX_TOTAL_WAIT_S = 1.8
+_REQUIRED_MAESTRO_MCP_TOOLS = frozenset(
+    {
+        "list_devices",
+        "launch_app",
+        "inspect_view_hierarchy",
+        "take_screenshot",
+        "tap_on",
+        "input_text",
+        "run_flow",
+    },
+)
+_MODERN_MINIMUM_MAESTRO_MCP_TOOLS = frozenset(
+    {
+        "list_devices",
+        "run",
+        "inspect_screen",
+    },
+)
 
 
 def _launch_message_from_info(launch_info: dict[str, object] | None) -> str | None:
@@ -613,6 +631,19 @@ def run_scenario_exploration(
         mcp_command,
         protocol_version=mcp_protocol_version,
     ) as transport:
+        advertised_tools = set(transport.list_tool_names())
+        legacy_missing = sorted(_REQUIRED_MAESTRO_MCP_TOOLS - advertised_tools)
+        modern_missing = sorted(_MODERN_MINIMUM_MAESTRO_MCP_TOOLS - advertised_tools)
+        if legacy_missing and modern_missing:
+            advertised_preview = ", ".join(sorted(advertised_tools)) or "<none>"
+            missing_preview = ", ".join(legacy_missing)
+            msg = (
+                "Incompatible Maestro MCP server. This build expects legacy tools "
+                f"({missing_preview} missing), or modern minimum tools "
+                f"({', '.join(modern_missing)} missing). Your server advertises: "
+                f"{advertised_preview}."
+            )
+            raise RuntimeError(msg)
         provider = McpMaestroAdapter(transport)
         screen = MaestroScreenService(provider)
 
